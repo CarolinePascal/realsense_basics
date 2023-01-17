@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<launch>   
+    <!-- CAMERA SETUP -->
+    <param name="realsense_json_file_path" value="$(find realsense_basics)/config/realsense/HighAccuracyPreset.json"/>
+    <param name="disparity_shift" value="5.0"/>
+    <param name="depth_units" value="0.0001"/>
+    <rosparam param="filters">["temporal","threshold"]</rosparam>
+    <rosparam param="threshold_filter">["0.0","0.5"]</rosparam>
+    <node pkg="realsense_basics" type="realsense_camera_node" name="realsense_camera_node" output="screen"/>
+</launch>
+
