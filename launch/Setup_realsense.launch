@@ -1,5 +1,8 @@
 <?xml version="1.0" ?>
 <launch>   
+
+    <arg name="camera_name" default="cameraD405"/>
+
     <!-- CAMERA SETUP -->
     <param name="realsense_json_file_path" value="$(find realsense_basics)/config/realsense/HighAccuracyPreset.json"/>
     <param name="disparity_shift" value="5.0"/>
@@ -7,5 +10,10 @@
     <rosparam param="filters">["temporal","threshold"]</rosparam>
     <rosparam param="threshold_filter">["0.0","0.5"]</rosparam>
     <node pkg="realsense_basics" type="realsense_camera_node" name="realsense_camera_node" output="screen"/>
+
+    <!-- CAMERA TF SETUP -->
+    <arg name="origin" default="world"/>
+    <node pkg="tf2_ros" type="static_transform_publisher" name="camera_robot_link" args="0 -0.0175 -0.0042 1.5708 0 0 $(arg origin) camera_link" if="$(eval arg('camera_name') == 'cameraD435')"/>
+    <node pkg="tf2_ros" type="static_transform_publisher" name="camera_robot_link" args="0 -0.009 -0.012 1.5708 0 0 $(arg origin) camera_link" if="$(eval arg('camera_name') == 'cameraD405')"/>
 </launch>
 
